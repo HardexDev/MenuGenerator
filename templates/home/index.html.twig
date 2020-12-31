@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Style_accueil.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+      {% set page = page | default({}) | merge({
+          "homestatus" : "active",
+          "generatestatus" : "",
+          "profilestatus" : "",
+          "sidebarclass" : "up-menu-380"
+      }) %}
+      {{ parent() }}
+      
+      <div class="container container-custom">
+        <div class="row image-container">
+    
+        </div>
+        <div class="row text-container">
+          <div class="col-md-4">
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade overlay">
+                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(147).jpg"
+                  alt="Card image cap">
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+            
+              <!-- Card content -->
+              <div class="card-body card-body-cascade">
+            
+                <!-- Label -->
+                <h5 class="pink-text pb-2 pt-1"><i class="fas fa-utensils"></i> Des aliments de qualité</h5>
+                <!-- Title -->
+                <h4 class="font-weight-bold card-title">Générez vos menus</h4>
+                <!-- Text -->
+                <p class="card-text">Générez des menus équilibrés et de saison afin de respecter votre santé et celle de vos enfants grâce à des produits variés et de qualité</p>
+            
+              </div>
+            
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade overlay">
+                <img class="card-img-top" src="{{ asset('images/laptop.jpg') }}"
+                  alt="Card image cap">
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+            
+              <!-- Card content -->
+              <div class="card-body card-body-cascade">
+            
+                <!-- Label -->
+                <h5 class="pink-text pb-2 pt-1"><i class="far fa-smile-beam"></i> Une grande simplicité</h5>
+                <!-- Title -->
+                <h4 class="font-weight-bold card-title">Rien de plus facile</h4>
+                <!-- Text -->
+                <p class="card-text">Appuyez sur un bouton et le tour est joué ! Tous vos repas sont générés pour la semaine. Plus besoin de passer des heures à faire une liste</p>
+            
+              </div>
+            
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade overlay">
+                <img class="card-img-top" src="{{ asset('images/register.jpg') }}"
+                  alt="Card image cap">
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+            
+              <!-- Card content -->
+              <div class="card-body card-body-cascade">
+            
+                <!-- Label -->
+                <h5 class="pink-text pb-2 pt-1"><i class="fas fa-user"></i> Hautement personnalisable</h5>
+                <!-- Title -->
+                <h4 class="font-weight-bold card-title">Un espace personnel</h4>
+                <!-- Text -->
+                <p class="card-text">Entrez vos paramètres avant de générer votre semaine pour une plus grande personnalisation. Vous pourrez voir l'ensemble des semaines que vous avez généré dans votre espace personnel</p>
+            
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    
+{% endblock %}

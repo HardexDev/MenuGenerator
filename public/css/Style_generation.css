@@ -1,0 +1,116 @@
+.logo {
+    height: 150px;
+  }
+  
+  .img-custom {
+    width: 170px;
+    height: auto;
+  }
+  
+  .nav-link {
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-link p {
+    font-weight: bold;
+  }
+
+
+.container-custom {
+    height: 50vh;
+    max-width: 1300px;
+    margin-left: 450px;
+  }
+
+.title-container{
+    height : 10vh;
+}
+
+.parameters-container{
+    height : 20vh;
+}
+
+.submit-container{
+  text-align : center;
+}
+
+.submit-container button{
+  width : 400px;
+  height : 60px;
+}
+
+.week-container{
+  height : 70vh;
+  border-radius: 10px;
+}
+
+.week-title-container{
+  height : 100px;
+}
+
+.lunchs-container{
+  height : 55vh;
+}
+
+.card{
+  height : 200px;
+}
+
+.dinners-container{
+  height : 55vh;
+}
+
+@media (min-width: 768px){
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1  {
+    width: 100%;
+    *width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
+}
+
+/**
+ *  The following is not really needed in this case
+ *  Only to demonstrate the usage of @media for large screens
+ */    
+@media (min-width: 1200px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
+}
+
+.card-subtitle{
+  text-align : center;
+}
+
+
+.reload{
+  width : 30px;
+  height : 30px;
+}
+
+.reload i {
+  cursor: pointer;
+}
+
+.aliment-card {
+  height: 100vh;
+}
+
+.card-body {
+  height: 60vh;
+}

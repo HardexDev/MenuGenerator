@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Style_profile.css') }}">
+{% endblock %}
+
+{% block body %}
+      {% set page = page | default({}) | merge({
+          "homestatus" : "",
+          "generatestatus" : "",
+          "profilestatus" : "active",
+          "sidebarclass" : "up-menu-300"
+      }) %}
+      {{ parent() }}
+
+      <div class="container container-custom">
+        <h1 class="" style="font-weight : bold; text-align : center">Vos informations personnelles</h1>
+        <div class="row justify-content-center align-items-center form-container"></div>
+            {% for message in app.flashes('message') %}
+              <div class="alert alert-success" role="alert">
+                {{message}}
+              </div>
+            {% endfor %}
+
+              
+            {{ form_start(form) }}
+              <div class="form-row">
+                  <div class="col-md-6">
+                     {{ form_row(form.firstname, {'label' : 'Prénom :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre nom'}, }) }}
+                </div>
+                  <div class="col-md-6">
+                    {{ form_row(form.lastname, {'label' : 'Nom :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre prénom'}, }) }}
+                  </div>
+                </div>
+    
+                <div class="form-row">
+                  <div class="col-md-6">
+                    {{ form_row(form.weigth, {'label' : 'Poids :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre poids'}, }) }}
+                  </div>
+                  <div class="col-md-6">
+                    {{ form_row(form.heigth, {'label' : 'Taille :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre taille'}, }) }}
+                  </div>
+                </div>
+    
+              <div class="form-group">
+                {{ form_row(form.email, {'label' : 'Adresse mail :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre adresse mail'}, }) }}
+              </div>
+              
+              <div class="text-center">
+                  <button type="submit" class="btn btn-success" id="connect" name="connect">Enregistrer profil</button>
+              </div>
+
+              {{ form_end(form) }}
+
+              {{ form_start(formPassword) }}
+
+                    <div class="form-group">
+                      {{ form_row(formPassword.password, {'label' : 'Mot de passe :', 'attr': {'class': 'form-control', 'placeholder' : 'Votre mot de passe'}, }) }}
+                    </div>
+
+                    <div class="form-group">
+                      {{ form_row(formPassword.confirm_password, {'label' : 'Confirmer mot de passe', 'attr': {'class': 'form-control', 'placeholder' : 'Confirmation mot de passe'}, }) }}
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-success" id="connect" name="connect">Modifier mot de passe</button>
+                    </div>
+
+              {{ form_end(formPassword) }}
+                      </div>
+                  </div>
+                  
+                  
+              </div>
+
+              
+
+              
+
+
+              
+              </div>
+      </div>
+
+    
+{% endblock %}

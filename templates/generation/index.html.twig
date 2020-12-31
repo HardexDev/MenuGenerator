@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Generator{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Style_generation.css') }}">
+{% endblock %}
+
+{% block body %}
+      {% set page = page | default({}) | merge({
+          "homestatus" : "",
+          "generatestatus" : "active",
+          "profilestatus" : "",
+          "sidebarclass" : "up-menu-300"
+      }) %}
+      {{ parent() }}
+
+      <div class="container container-custom">
+        <div class="row justify-content-center align-items-center title-container">
+            <h1>Générez votre menu !</h1>
+        </div>
+
+        <a class="btn btn-primary mb-3" data-toggle="collapse" href="#collapseParameters" role="button" aria-expanded="false" aria-controls="collapseParameters">
+          Montrer/Cacher paramètres
+        </a>
+
+        <div class="row parameter-container">
+            <div class="col-md-12">
+            {{ form_start(parameters_form)}}
+            <form>
+                <div class="collapse" id="collapseParameters">
+                <h3>Catégories de plats</h3>
+                <div class="form-row">
+                    
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_meat, {'label' : 'Viandes :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_egg, {'label' : 'Oeufs :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_fish, {'label' : 'Poissons :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_vegetable, {'label' : 'Légumes :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_starchy, {'label' : 'Féculents :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                    </div>
+                </div>
+                <h3>Catégories de desserts</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_yogurt, {'label' : 'Yahourts :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                        </div>
+                        <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.nb_fruit, {'label' : 'Fruits :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form_row(parameters_form.nb_cheese, {'label' : 'Fromages :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form_row(parameters_form.nb_greedy, {'label' : 'Gourmands :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
+                        </div>
+                </div>
+                <h3>Préférences</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.remove_dish, {'label' : 'Supprimer plat :', 'attr': {'class': 'form-control', 'placeholder' : 'Supprimer un plat'}, }) }}
+
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.remove_dessert, {'label' : 'Supprimer dessert :', 'attr': {'class': 'form-control', 'placeholder' : 'Supprimer un dessert'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.force_aliment, {'label' : 'Imposer aliment :', 'attr': {'class': 'form-control', 'placeholder' : 'Imposer un aliment'}, }) }}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ form_row(parameters_form.jour_semaine, {'label' : 'Jour de départ :', 'attr': {'class': 'form-control', 'placeholder' : 'Imposer un aliment'}, }) }}
+                    </div>
+                </div>
+                </div>
+                <div class="submit-container">
+                    <button type="submit" class="btn btn-success">Générer !</button>
+                </div>
+                
+                </form>
+                {{ form_end(parameters_form) }}
+
+                {% if hasWeeksGenerated == true %}
+                <div class="container-fluid week-container mt-5">
+                  <div class="row justify-content-between align-items-center week-title-container">
+                    <h1>Semaine du {{ week.startdate | date('d/m') }} au {{ week.startdate | date_modify("+7 day")|date("d/m") }}</h1>
+                    <a href="{{ path('user_history') }}" class="btn btn-primary">Historique des semaines</a>
+                  </div>
+
+                  <h3>Déjeuners</h3>
+
+                  <div class="row seven-cols lunchs-container">
+                      {% for day in week.numday %}
+                      <div class="col-md-3 col-md-21 card-container">
+                        <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                            <h5 class="card-title mb-4">{{ day.dayname }}</h5>
+                            <h6 class="card-subtitle mb-4">{{ day.idlunch.iddish.dishname }}</h6>
+                            <hr>
+                            <h6 class="card-subtitle mt-4">{{ day.idlunch.iddessert.dessertname }}</h6>
+                            <i class="fas fa-sync-alt"></i>
+                            <input style="margin-left : 130px; margin-top : 20px;" type="checkbox" class="take-away" id="exampleCheck1">
+                            <label class="take-away" for="exampleCheck1">à emporter</label>    
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+
+                  <h3>Diners</h3>
+
+                  <div class="row dinners-container seven-cols">
+                  {% for day in week.numday %}
+                      <div class="col-md-3 col-md-21 card-container">
+                        <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                            <h5 class="card-title mb-4">{{ day.dayname }}</h5>
+                            <h6 class="card-subtitle mb-4">{{ day.iddinner.iddish.dishname }}</h6>
+                            <hr>
+                            <h6 class="card-subtitle mt-4">{{ day.iddinner.iddessert.dessertname }}</h6>
+                            <i class="fas fa-sync-alt"></i>
+                            <input style="margin-left : 130px; margin-top : 20px;" type="checkbox" class="take-away" id="exampleCheck1">
+                            <label class="take-away" for="exampleCheck1">à emporter</label>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                  
+                </div>
+                <h1 class="mt-3 mb-5 text-center">Faites vos courses ! <i class="fas fa-shopping-cart"></i></h1>
+                <div class="card mb-5 aliment-card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <h2 class="mb-4">Plats</h2>
+                                <table class="table" id="table-dishes">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Nom de l'aliment</th>
+                                        <th scope="col">Catégorie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, aliment in week_aliments_dishes %}
+                                            <tr>
+                                                <th scope="row">{{ key + 1 }}</th>
+                                                <td>{{ aliment.alimentname }}</td>
+                                                <td>{{ categories[aliment.idcategory] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h2 class="mb-4">Desserts</h2>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Nom de l'aliment</th>
+                                        <th scope="col">Catégorie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, aliment in week_aliments_desserts %}
+                                            <tr>
+                                                <th scope="row">{{ key + 1 }}</th>
+                                                <td>{{ aliment.alimentname }}</td>
+                                                <td>{{ categories[aliment.idcategory] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <h2 class="text-center" style="margin-top : 200px;">Vous n'avez pas encore généré de semaine !</h2>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/generation.js')}}"></script>
+{% endblock %}

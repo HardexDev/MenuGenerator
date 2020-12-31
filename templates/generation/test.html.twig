@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Generator{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Style_generation.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for element in weeks %}
+        <p>{{ element.startdate | date("m/d/Y") }}</p>
+    {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

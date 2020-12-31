@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        {% block stylesheets %}{% endblock %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
+        
+        
+    </head>
+    <body>
+        {% set page = page | default({}) | merge({
+          "homestatus" : "",
+          "generatestatus" : "",
+          "profilestatus" : "",
+          "sidebarclass" : ""
+        }) %}
+        
+        {% block body %}
+        <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+        <div class="logo"><a href="#" class="simple-text logo-normal">
+            <img class="img-custom" src="{{ asset('images/16113.png') }}" alt="">
+          </a></div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <div class="{{ page.sidebarclass }}">
+            <li class="nav-item {{page.homestatus}}">
+              <a class="nav-link" href="{{ path('home') }}">
+                <i class="material-icons">home</i>
+                <p>Accueil</p>
+              </a>
+            </li>
+            {% if app.user == false %}
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('user_login') }}">
+                <i class="material-icons">login</i>
+                <p>Se connecter</p>
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_register') }}">
+                  <i class="material-icons">how_to_reg</i>
+                  <p>S'inscrire</p>
+                </a>
+            </li>
+            {% else %}
+            <li class="nav-item {{page.generatestatus}}">
+              <a class="nav-link" href="{{ path('generation') }}">
+                <i class="material-icons">restaurant_menu</i>
+                <p>Générateur</p>
+              </a>
+            </li>
+            <li class="nav-item {{page.profilestatus}}">
+                <a class="nav-link" href="{{ path('user_profile') }}">
+                  <i class="material-icons">account_circle</i>
+                  <p>Profil</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_logout') }}">
+                  <i class="material-icons">logout</i>
+                  <p>Se déconnecter</p>
+                </a>
+            </li>
+
+            {% endif %}
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ asset('pdf/Mentions_legales.pdf') }}" target="_blank">
+                  <i class="material-icons">sticky_note_2</i>
+                  <p>Mentions légales</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ asset('pdf/Politique_confidentialite.pdf') }}" target="_blank">
+                  <i class="material-icons">policy</i>
+                  <p>Confidentialité</p>
+                </a>
+            </li>
+            
+          </ul>
+          
+        </div>
+
+        
+        </div>
+        
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Generator{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Style_generation.css') }}">
+{% endblock %}
+
+{% block body %}
+      {% set page = page | default({}) | merge({
+          "homestatus" : "",
+          "generatestatus" : "active",
+          "profilestatus" : "",
+          "sidebarclass" : "up-menu-300"
+      }) %}
+      {{ parent() }}
+
+      <div class="container container-custom">
+        <div class="row justify-content-center align-items-center title-container">
+            <h1>Historique de vos semaines</h1>
+        </div>
+
+
+        {% for week in app.user.idweek|reverse %}
+        <div class="card" style="height : 130vh">
+        <div class="card-body">
+            <h1 class="card-title">Semaine du {{ week.startdate | date('d/m') }} au {{ week.startdate | date_modify("+7 day")|date("d/m") }}</h1>
+            <h3>Déjeuners</h3>
+            <div class="row seven-cols lunchs-container">
+                {% for day in week.numday %}
+                <div class="col-md-3 col-md-21 card-container">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title mb-4">{{ day.dayname }}</h5>
+                    <h6 class="card-subtitle mb-4">{{ day.idlunch.iddish.dishname }}</h6>
+                    <hr>
+                    <h6 class="card-subtitle mt-4">{{ day.idlunch.iddessert.dessertname }}</h6>
+                    <i class="fas fa-sync-alt"></i>
+                    <input style="margin-left : 130px; margin-top : 20px;" type="checkbox" class="take-away" id="exampleCheck1">
+                    <label class="take-away" for="exampleCheck1">à emporter</label>    
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h3>Diners</h3>
+
+            <div class="row dinners-container seven-cols">
+                  {% for day in week.numday %}
+                      <div class="col-md-3 col-md-21 card-container">
+                        <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                            <h5 class="card-title mb-4">{{ day.dayname }}</h5>
+                            <h6 class="card-subtitle mb-4">{{ day.iddinner.iddish.dishname }}</h6>
+                            <hr>
+                            <h6 class="card-subtitle mt-4">{{ day.iddinner.iddessert.dessertname }}</h6>
+                            <i class="fas fa-sync-alt"></i>
+                            <input style="margin-left : 130px; margin-top : 20px;" type="checkbox" class="take-away" id="exampleCheck1">
+                            <label class="take-away" for="exampleCheck1">à emporter</label>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                  
+                </div>
+        </div>
+        </div>
+        {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/generation.js')}}"></script>
+{% endblock %}
