@@ -79,6 +79,11 @@ class Client implements UserInterface
     public $confirm_password;
 
     /**
+     * @Assert\IsTrue(message="Vous n'avez pas accepté la politique de confidentialité")
+    */
+    public $accept_policy;
+
+    /**
      * Represents the clean password of the user
      */
     public $cleanPassword;

@@ -43,7 +43,7 @@
                     {{ form_row(form.weigth, {'label' : 'Poids (en kg) :', 'attr': {'class': 'form-control', 'placeholder' : 'Indiquez votre poids'}, }) }}
                   </div>
                   <div class="form-group col-md-6">
-                    {{ form_row(form.heigth, {'label' : 'Taille (en mètre) :', 'attr': {'class': 'form-control', 'placeholder' : 'Indiquez votre taille'}, }) }}
+                    {{ form_row(form.heigth, {'label' : 'Taille (en cm) :', 'attr': {'class': 'form-control', 'placeholder' : 'Indiquez votre taille'}, }) }}
                   </div>
                 </div>
     
@@ -58,6 +58,11 @@
     
               <div class="form-group">
                   {{ form_row(form.confirm_password, {'label' : 'Confirmation du mot de passe :', 'attr': {'class': 'form-control', 'placeholder' : 'Veuillez entrer à nouveau votre mot de passe'}, }) }}
+                  
+              </div>
+
+              <div class="form-group">
+                  {{ form_row(form.accept_policy, {'label' : 'Vous acceptez la politique de confidentialité' }) }}
                   
               </div>
 
