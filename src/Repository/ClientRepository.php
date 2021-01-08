@@ -47,12 +47,4 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function createTaMere(){
-        
-    }
-
-    public function test(){
-        
-    }
 }
