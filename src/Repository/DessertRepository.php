@@ -59,12 +59,31 @@ class DessertRepository extends ServiceEntityRepository
     public function findByRandom($number)
     {
         $allDesserts = $this->findAll();
+        $allDessertsSeasonal = array();
+        $currentMonth = date('m');
+        foreach ($allDesserts as $dessert){
+            $dessertSeasonal = true;
+            foreach ($dessert->getIdaliment() as $aliment){
+                if ($aliment->getIdcategory() == 4 || $aliment->getIdcategory() == 7){
+                    $dessertSeasonal = false;
+                    foreach ($aliment->getIdmonth() as $month){
+                        if ($month->getIdmonth() == $currentMonth){
+                            $dessertSeasonal = true;
+                        }
+                    }
+                }
+            }
+
+            if (!in_array($dessert, $allDessertsSeasonal) && $dessertSeasonal){
+                $allDessertsSeasonal[] = $dessert;
+            }
+        }
         $desserts = array();
 
         for ($i=0; $i<$number; $i++){
-            $randPosition = array_rand($allDesserts);
-            $desserts[] = $allDesserts[$randPosition];
-            unset($allDesserts[$randPosition]);
+            $randPosition = array_rand($allDessertsSeasonal);
+            $desserts[] = $allDessertsSeasonal[$randPosition];
+            unset($allDessertsSeasonal[$randPosition]);
         }
 
         return $desserts;
