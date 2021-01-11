@@ -32,6 +32,14 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
+
                 ],
             ])
             ->add('nb_egg', ChoiceType::class, [
@@ -40,6 +48,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_fish', ChoiceType::class, [
@@ -48,6 +63,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_vegetable', ChoiceType::class, [
@@ -56,6 +78,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_starchy', ChoiceType::class, [
@@ -64,6 +93,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_yogurt', ChoiceType::class, [
@@ -72,6 +108,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_fruit', ChoiceType::class, [
@@ -80,6 +123,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_cheese', ChoiceType::class, [
@@ -88,6 +138,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('nb_greedy', ChoiceType::class, [
@@ -96,6 +153,13 @@ class GenerationParametersType extends AbstractType
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10
                 ],
             ])
             ->add('remove_dish', EntityType::class, [

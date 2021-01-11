@@ -59,15 +59,18 @@ class WeekRepository extends ServiceEntityRepository
             $dayChosen = $data['jour_semaine'] . " this week";
         }
         
-
         $week = new Week();
+        $allMeals = array_chunk($mealRepo->findByRandom(14), 7);
 
-        for ($i=1 ; $i <= 7 ; $i++){
+        for ($i=0 ; $i < 7 ; $i++){
             $day = new Day();
-            $day->setNumDay($i);
-            $day->setDayName("Jour $i");
-            $day->setIdlunch($mealRepo->findOneByRandom());
-            $day->setIddinner($mealRepo->findOneByRandom());
+            $dayNum = $i+1;
+            $day->setNumDay($dayNum);
+            $day->setDayName("Jour $dayNum");
+            $lunch = $allMeals[0][$i];
+            $dinner = $allMeals[1][$i];
+            $day->setIdlunch($lunch);
+            $day->setIddinner($dinner);
             $week->addNumday($day);
             $week->setStartdate(new DateTime(date( 'Y-m-d', strtotime( $dayChosen ))));
         }

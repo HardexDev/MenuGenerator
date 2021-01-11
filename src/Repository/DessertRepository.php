@@ -55,4 +55,18 @@ class DessertRepository extends ServiceEntityRepository
 
         return $res;
     }
+
+    public function findByRandom($number)
+    {
+        $allDesserts = $this->findAll();
+        $desserts = array();
+
+        for ($i=0; $i<$number; $i++){
+            $randPosition = array_rand($allDesserts);
+            $desserts[] = $allDesserts[$randPosition];
+            unset($allDesserts[$randPosition]);
+        }
+
+        return $desserts;
+    }
 }

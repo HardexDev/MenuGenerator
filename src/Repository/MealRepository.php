@@ -71,12 +71,13 @@ class MealRepository extends ServiceEntityRepository
         $dishRepo = $this->getEntityManager()->getRepository(Dish::class);
         $dessertRepo = $this->getEntityManager()->getRepository(Dessert::class);
         
-        
-        $allMeals = [];
+        $allDishes = $dishRepo->findByRandom($number);
+        $allDesserts = $dessertRepo->findByRandom($number);
+        $allMeals = array();
 
         for ($i = 0 ; $i<$number ; $i++){
-            $randDish= $dishRepo->findOneByRandom();
-            $randDessert= $dessertRepo->findOneByRandom();
+            $randDish= $allDishes[$i];
+            $randDessert= $allDesserts[$i];
             $res = new Meal();
             $res->setIddish($randDish);
             $res->setIddessert($randDessert);

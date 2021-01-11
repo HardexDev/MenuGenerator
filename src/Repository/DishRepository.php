@@ -56,4 +56,37 @@ class DishRepository extends ServiceEntityRepository
 
         return $res;
     }
+
+    public function findByRandom($number)
+    {
+        $allDishes = $this->findAll();
+        $allDishesSeasonal = array();
+        $currentMonth = date('m');
+        foreach ($allDishes as $dish){
+            $dishSeasonal = true;
+            foreach ($dish->getIdaliment() as $aliment){
+                if ($aliment->getIdcategory() == 4 || $aliment->getIdcategory() == 7){
+                    $dishSeasonal = false;
+                    foreach ($aliment->getIdmonth() as $month){
+                        if ($month->getIdmonth() == $currentMonth){
+                            $dishSeasonal = true;
+                        }
+                    }
+                }
+            }
+
+            if (!in_array($dish, $allDishesSeasonal) && $dishSeasonal){
+                $allDishesSeasonal[] = $dish;
+            }
+        }
+        $dishes = array();
+
+        for ($i=0; $i<$number; $i++){
+            $randPosition = array_rand($allDishesSeasonal);
+            $dishes[] = $allDishesSeasonal[$randPosition];
+            unset($allDishesSeasonal[$randPosition]);
+        }
+
+        return $dishes;
+    }
 }

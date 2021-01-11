@@ -120,7 +120,7 @@ class UsersController extends AbstractController
      */
     public function history(): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('users/history.html.twig', [
             'controller_name' => 'UsersController',
         ]);
