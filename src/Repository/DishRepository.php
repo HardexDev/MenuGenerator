@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Dish;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Dish|null find($id, $lockMode = null, $lockVersion = null)
@@ -57,9 +58,12 @@ class DishRepository extends ServiceEntityRepository
         return $res;
     }
 
-    public function findByRandom($number)
+    public function findByRandom($number, Security $security)
     {
+        // All dishes in database
         $allDishes = $this->findAll();
+
+        // Add only dishes which have seasonal aliments
         $allDishesSeasonal = array();
         $currentMonth = date('m');
         foreach ($allDishes as $dish){
@@ -79,8 +83,10 @@ class DishRepository extends ServiceEntityRepository
                 $allDishesSeasonal[] = $dish;
             }
         }
+        // array of dishes that will be returned
         $dishes = array();
 
+        // Pick random dishes from the final array
         for ($i=0; $i<$number; $i++){
             $randPosition = array_rand($allDishesSeasonal);
             $dishes[] = $allDishesSeasonal[$randPosition];

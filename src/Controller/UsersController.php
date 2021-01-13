@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Week;
 use App\Entity\Client;
 use App\Form\ProfileType;
 use App\Form\EditPasswordType;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -124,6 +126,17 @@ class UsersController extends AbstractController
         return $this->render('users/history.html.twig', [
             'controller_name' => 'UsersController',
         ]);
+    }
+
+    /**
+     * @Route("/history/{id}/delete", name="week_delete")
+    */
+    public function deleteWeek(Week $week): RedirectResponse{
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($week);
+        $manager->flush();
+
+        return $this->redirectToRoute("user_history");
     }
 
 }

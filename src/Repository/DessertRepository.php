@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Aliment;
 use App\Entity\Dessert;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Dessert|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,6 +48,23 @@ class DessertRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllFruits(){
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.idcategory = :val')
+            ->setParameter('val', 7)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllDessertsExeptFruits(){
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.idcategory != :val')
+            ->setParameter('val', 7)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     public function findOneByRandom() : ?Dessert
     {
@@ -58,33 +76,47 @@ class DessertRepository extends ServiceEntityRepository
 
     public function findByRandom($number)
     {
-        $allDesserts = $this->findAll();
-        $allDessertsSeasonal = array();
         $currentMonth = date('m');
-        foreach ($allDesserts as $dessert){
-            $dessertSeasonal = true;
-            foreach ($dessert->getIdaliment() as $aliment){
-                if ($aliment->getIdcategory() == 4 || $aliment->getIdcategory() == 7){
-                    $dessertSeasonal = false;
-                    foreach ($aliment->getIdmonth() as $month){
-                        if ($month->getIdmonth() == $currentMonth){
-                            $dessertSeasonal = true;
+        $allFruits = $this->findAllFruits();
+        $seasonalFruits = array();
+
+        foreach ($allFruits as $fruitDessert){
+            foreach($fruitDessert->getIdaliment() as $fruit){
+                foreach ($fruit->getIdmonth() as $month){
+                    if ($month->getIdmonth() == $currentMonth){
+                        if (!in_array($fruit, $seasonalFruits)){
+                            $seasonalFruits[] = $fruitDessert;
                         }
                     }
                 }
             }
-
-            if (!in_array($dessert, $allDessertsSeasonal) && $dessertSeasonal){
-                $allDessertsSeasonal[] = $dessert;
-            }
+            
         }
+
+        $threeRandomFruits = array();
+
+        for ($i = 0; $i<3; $i++){
+            $randPos = array_rand($seasonalFruits);
+            $threeRandomFruits[] = $seasonalFruits[$randPos];
+            unset($seasonalFruits[$randPos]);
+        }
+
+        $allDesserts = $this->findAllDessertsExeptFruits();
         $desserts = array();
 
-        for ($i=0; $i<$number; $i++){
-            $randPosition = array_rand($allDessertsSeasonal);
-            $desserts[] = $allDessertsSeasonal[$randPosition];
-            unset($allDessertsSeasonal[$randPosition]);
+        for ($i=0; $i<7; $i++){
+            $desserts[] = $threeRandomFruits[array_rand($threeRandomFruits)];
         }
+
+        $remainingSpace = $number - count($desserts);
+
+        for ($i=0; $i<$remainingSpace; $i++){
+            $randPosition = array_rand($allDesserts);
+            $desserts[] = $allDesserts[$randPosition];
+            unset($allDesserts[$randPosition]);
+        }
+
+        shuffle($desserts);
 
         return $desserts;
     }

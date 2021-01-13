@@ -48,7 +48,6 @@ class AlimentRepository extends ServiceEntityRepository
         ;
     }
     */
-
     public function findAllByWeekDishesDistinct(Week $week)
     {
         $aliments = array();

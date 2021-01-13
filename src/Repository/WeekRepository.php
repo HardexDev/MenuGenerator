@@ -7,6 +7,7 @@ use App\Entity\Day;
 use App\Entity\Meal;
 use App\Entity\Week;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -51,7 +52,7 @@ class WeekRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneByRandom(array $data) : ?Week
+    public function findOneByRandom(array $data, Security $security) : ?Week
     {
         $mealRepo = $this->getEntityManager()->getRepository(Meal::class);
         $dayChosen = "today";
@@ -60,7 +61,7 @@ class WeekRepository extends ServiceEntityRepository
         }
         
         $week = new Week();
-        $allMeals = array_chunk($mealRepo->findByRandom(14), 7);
+        $allMeals = array_chunk($mealRepo->findByRandom(14, $security), 7);
 
         for ($i=0 ; $i < 7 ; $i++){
             $day = new Day();

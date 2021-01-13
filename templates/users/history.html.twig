@@ -28,7 +28,10 @@
         {% for week in app.user.idweek|reverse %}
         <div class="card" style="height : 130vh">
         <div class="card-body">
-            <h1 class="card-title">Semaine du {{ week.startdate | date('d/m') }} au {{ week.startdate | date_modify("+7 day")|date("d/m") }}</h1>
+            <div class="header d-flex justify-content-between">
+              <h1 class="card-title">Semaine du {{ week.startdate | date('d/m') }} au {{ week.startdate | date_modify("+7 day")|date("d/m") }}</h1>
+              <a href="{{ path('week_delete', {'id': week.idweek}) }}" class="btn btn-danger" style="height : 40px; color : #FFF">Supprimer</a>            
+            </div>
             <h3>Déjeuners</h3>
             <div class="row seven-cols lunchs-container">
                 {% for day in week.numday %}

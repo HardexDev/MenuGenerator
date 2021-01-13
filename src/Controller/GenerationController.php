@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GenerationController extends AbstractController
@@ -51,7 +52,7 @@ class GenerationController extends AbstractController
             if ($parameters_form->isSubmitted()){
                 
                 $data = $parameters_form->getData();
-                $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data);
+                $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data, $security);
                 $week->addIdclient($connectedUser);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($week);
@@ -74,7 +75,7 @@ class GenerationController extends AbstractController
 
         if ($parameters_form->isSubmitted()){
             $data = $parameters_form->getData();
-            $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data);
+            $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data, $security);
             $week->addIdclient($connectedUser);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($week);

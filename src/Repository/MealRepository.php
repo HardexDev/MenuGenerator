@@ -6,6 +6,7 @@ use App\Entity\Dish;
 use App\Entity\Meal;
 use App\Entity\Dessert;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -66,13 +67,13 @@ class MealRepository extends ServiceEntityRepository
         return $res;
     }
 
-    public function findByRandom($number)
+    public function findByRandom($number, Security $security)
     {
         $dishRepo = $this->getEntityManager()->getRepository(Dish::class);
         $dessertRepo = $this->getEntityManager()->getRepository(Dessert::class);
         
-        $allDishes = $dishRepo->findByRandom($number);
-        $allDesserts = $dessertRepo->findByRandom($number);
+        $allDishes = $dishRepo->findByRandom($number, $security);
+        $allDesserts = $dessertRepo->findByRandom($number, $security);
         $allMeals = array();
 
         for ($i = 0 ; $i<$number ; $i++){
