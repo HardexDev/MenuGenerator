@@ -61,8 +61,12 @@
                   
               </div>
 
-              <div class="form-group">
-                  {{ form_row(form.accept_policy, {'label' : 'Vous acceptez la politique de confidentialité' }) }}
+              <div class="form-group d-flex">
+                  
+                  {% set terms_link %}<a href="{{ asset('pdf/Politique_confidentialite.pdf') }}">{% trans %}politique de confidentialite{% endtrans %}</a>{% endset %}
+                  {% set general_terms_and_conditions %}{{ 'Vous acceptez la %general_terms_and_conditions%.'|trans({ '%general_terms_and_conditions%': terms_link })|raw }}{% endset %}
+                  {{ form_widget(form.accept_policy, {'label': ' '})}}
+                  <label for="{{ form.accept_policy.vars.id }}">{{ general_terms_and_conditions|raw }}</label>
                   
               </div>
 

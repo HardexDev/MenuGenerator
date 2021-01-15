@@ -48,9 +48,6 @@
                     <div class="form-group col-md-3">
                         {{ form_row(parameters_form.nb_vegetable, {'label' : 'Légumes :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
                     </div>
-                    <div class="form-group col-md-3">
-                        {{ form_row(parameters_form.nb_starchy, {'label' : 'Féculents :', 'attr': {'class': 'form-control', 'placeholder' : 'Choisir la quantité'}, }) }}
-                    </div>
                 </div>
                 <h3>Catégories de desserts</h3>
                 <div class="form-row">
@@ -75,9 +72,6 @@
                     </div>
                     <div class="form-group col-md-3">
                         {{ form_row(parameters_form.remove_dessert, {'label' : 'Supprimer dessert :', 'attr': {'class': 'form-control', 'placeholder' : 'Supprimer un dessert'}, }) }}
-                    </div>
-                    <div class="form-group col-md-3">
-                        {{ form_row(parameters_form.force_aliment, {'label' : 'Imposer aliment :', 'attr': {'class': 'form-control', 'placeholder' : 'Imposer un aliment'}, }) }}
                     </div>
                     <div class="form-group col-md-3">
                         {{ form_row(parameters_form.jour_semaine, {'label' : 'Jour de départ :', 'attr': {'class': 'form-control', 'placeholder' : 'Imposer un aliment'}, }) }}
@@ -143,6 +137,7 @@
                                         <tr>
                                         <th scope="col"></th>
                                         <th scope="col">Nom de l'aliment</th>
+                                        <th scope="col">Quantité</th>
                                         <th scope="col">Catégorie</th>
                                         </tr>
                                     </thead>
@@ -150,8 +145,9 @@
                                         {% for key, aliment in week_aliments_dishes %}
                                             <tr>
                                                 <th scope="row">{{ key + 1 }}</th>
-                                                <td>{{ aliment.alimentname }}</td>
-                                                <td>{{ categories[aliment.idcategory] }}</td>
+                                                <td>{{ aliment['alimentObject'].alimentname }}</td>
+                                                <td>{{ aliment['count'] }}</td>
+                                                <td>{{ categories[aliment['alimentObject'].idcategory] }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -165,6 +161,7 @@
                                         <tr>
                                         <th scope="col"></th>
                                         <th scope="col">Nom de l'aliment</th>
+                                        <th scope="col">Quantité</th>
                                         <th scope="col">Catégorie</th>
                                         </tr>
                                     </thead>
@@ -172,8 +169,9 @@
                                         {% for key, aliment in week_aliments_desserts %}
                                             <tr>
                                                 <th scope="row">{{ key + 1 }}</th>
-                                                <td>{{ aliment.alimentname }}</td>
-                                                <td>{{ categories[aliment.idcategory] }}</td>
+                                                <td>{{ aliment['alimentObject'].alimentname }}</td>
+                                                <td>{{ aliment['count'] }}</td>
+                                                <td>{{ categories[aliment['alimentObject'].idcategory] }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

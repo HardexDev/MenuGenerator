@@ -52,7 +52,7 @@ class GenerationController extends AbstractController
             if ($parameters_form->isSubmitted()){
                 
                 $data = $parameters_form->getData();
-                $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data, $security);
+                $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data);
                 $week->addIdclient($connectedUser);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($week);
@@ -75,7 +75,7 @@ class GenerationController extends AbstractController
 
         if ($parameters_form->isSubmitted()){
             $data = $parameters_form->getData();
-            $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data, $security);
+            $week = $this->getDoctrine()->getRepository(Week::class)->findOneByRandom($data);
             $week->addIdclient($connectedUser);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($week);

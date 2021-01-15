@@ -52,7 +52,7 @@ class WeekRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneByRandom(array $data, Security $security) : ?Week
+    public function findOneByRandom(array $data) : ?Week
     {
         $mealRepo = $this->getEntityManager()->getRepository(Meal::class);
         $dayChosen = "today";
@@ -61,7 +61,7 @@ class WeekRepository extends ServiceEntityRepository
         }
         
         $week = new Week();
-        $allMeals = array_chunk($mealRepo->findByRandom(14, $security), 7);
+        $allMeals = array_chunk($mealRepo->findByRandom(14, $data), 7);
 
         for ($i=0 ; $i < 7 ; $i++){
             $day = new Day();

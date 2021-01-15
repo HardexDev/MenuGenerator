@@ -67,13 +67,13 @@ class MealRepository extends ServiceEntityRepository
         return $res;
     }
 
-    public function findByRandom($number, Security $security)
+    public function findByRandom($number, array $data)
     {
         $dishRepo = $this->getEntityManager()->getRepository(Dish::class);
         $dessertRepo = $this->getEntityManager()->getRepository(Dessert::class);
         
-        $allDishes = $dishRepo->findByRandom($number, $security);
-        $allDesserts = $dessertRepo->findByRandom($number, $security);
+        $allDishes = $dishRepo->findByRandom($number, $data);
+        $allDesserts = $dessertRepo->findByRandom($number, $data);
         $allMeals = array();
 
         for ($i = 0 ; $i<$number ; $i++){

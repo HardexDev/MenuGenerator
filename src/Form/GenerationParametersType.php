@@ -87,21 +87,6 @@ class GenerationParametersType extends AbstractType
                     '10' => 10
                 ],
             ])
-            ->add('nb_starchy', ChoiceType::class, [
-                'choices' => [
-                    'Choisir la quantité' => null,
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
-                    '6' => 6,
-                    '7' => 7,
-                    '8' => 8,
-                    '9' => 9,
-                    '10' => 10
-                ],
-            ])
             ->add('nb_yogurt', ChoiceType::class, [
                 'choices' => [
                     'Choisir la quantité' => null,
@@ -172,12 +157,6 @@ class GenerationParametersType extends AbstractType
                 'class' => Dessert::class,
                 'placeholder' => 'Dessert à supprimer',
                 'choice_label' => 'dessertname',
-                'required' => false,
-            ])
-            ->add('force_aliment', EntityType::class, [
-                'class' => Aliment::class,
-                'placeholder' => 'Aliment à imposer',
-                'choice_label' => 'alimentname',
                 'required' => false,
             ])
             ->add('jour_semaine', ChoiceType::class, [

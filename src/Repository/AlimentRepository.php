@@ -48,24 +48,76 @@ class AlimentRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findAllByWeekDishesDistinct(Week $week)
-    {
+
+    private function findAllBySort(&$aliments, $props){
+        usort($aliments, function($a, $b) use ($props) {
+            if($a['alimentObject']->getIdcategory() == $b['alimentObject']->getIdcategory())
+                return strnatcmp($a['alimentObject']->getAlimentname(), $b['alimentObject']->getAlimentname()) > 0 ? 1 : -1;
+            return $a['alimentObject']->getIdcategory() > $b['alimentObject']->getIdcategory() ? 1 : -1;
+        });
+    }
+
+    public function findAllByWeekDishesDistinct(Week $week){
         $aliments = array();
         foreach ($week->getNumday() as $day){
             foreach ($day->getIdlunch()->getIddish()->getIdaliment() as $aliment){
-                if (!in_array($aliment, $aliments)){
-                    $aliments[] = $aliment;
+                $in_array = false;
+                foreach ($aliments as $ali){
+                    if ($ali['alimentObject'] == $aliment)
+                        $in_array = true;
+                }
+                if (!$in_array){
+                    $aliments[] = array(
+                        'alimentObject' => $aliment,
+                        'count' => 1
+                    );
+                } else {
+                    $key = null;
+                    foreach ($aliments as $index => $a){
+                        $id = $a['alimentObject'];
+                        if ($id == $aliment){
+                            $key = $index;
+                        }
+                    }
+
+                    $newCount = $aliments[$key]['count'] + 1;
+                    $aliments[$key]['count'] = $newCount;
+
+                    
                 }
                 
             }
 
             foreach ($day->getIddinner()->getIddish()->getIdaliment() as $aliment){
-                if (!in_array($aliment, $aliments)){
-                    $aliments[] = $aliment;
+                $in_array = false;
+                foreach ($aliments as $ali){
+                    if ($ali['alimentObject'] == $aliment)
+                        $in_array = true;
+                }
+                if (!$in_array){
+                    $aliments[] = array(
+                        'alimentObject' => $aliment,
+                        'count' => 1
+                    );
+                } else {
+                    $key = null;
+                    foreach ($aliments as $index => $a){
+                        $id = $a['alimentObject'];
+                        if ($id == $aliment){
+                            $key = $index;
+                        }
+                    }
+
+                    $newCount = $aliments[$key]['count'] + 1;
+                    $aliments[$key]['count'] = $newCount;
+
+                    
                 }
                 
             }
         }
+
+        $this->findAllBySort($aliments, array("idcategory()", "getAlimentname()"));
 
         return $aliments;
     }
@@ -75,19 +127,63 @@ class AlimentRepository extends ServiceEntityRepository
         $aliments = array();
         foreach ($week->getNumday() as $day){
             foreach ($day->getIdlunch()->getIddessert()->getIdaliment() as $aliment){
-                if (!in_array($aliment, $aliments)){
-                    $aliments[] = $aliment;
+                $in_array = false;
+                foreach ($aliments as $ali){
+                    if ($ali['alimentObject'] == $aliment)
+                        $in_array = true;
+                }
+                if (!$in_array){
+                    $aliments[] = array(
+                        'alimentObject' => $aliment,
+                        'count' => 1
+                    );
+                } else {
+                    $key = null;
+                    foreach ($aliments as $index => $a){
+                        $id = $a['alimentObject'];
+                        if ($id == $aliment){
+                            $key = $index;
+                        }
+                    }
+
+                    $newCount = $aliments[$key]['count'] + 1;
+                    $aliments[$key]['count'] = $newCount;
+
+                    
                 }
                 
             }
 
             foreach ($day->getIddinner()->getIddessert()->getIdaliment() as $aliment){
-                if (!in_array($aliment, $aliments)){
-                    $aliments[] = $aliment;
+                $in_array = false;
+                foreach ($aliments as $ali){
+                    if ($ali['alimentObject'] == $aliment)
+                        $in_array = true;
+                }
+                if (!$in_array){
+                    $aliments[] = array(
+                        'alimentObject' => $aliment,
+                        'count' => 1
+                    );
+                } else {
+                    $key = null;
+                    foreach ($aliments as $index => $a){
+                        $id = $a['alimentObject'];
+                        if ($id == $aliment){
+                            $key = $index;
+                        }
+                    }
+
+                    $newCount = $aliments[$key]['count'] + 1;
+                    $aliments[$key]['count'] = $newCount;
+
+                    
                 }
                 
             }
         }
+
+        $this->findAllBySort($aliments, array("idcategory()", "getAlimentname()"));
 
         return $aliments;
     }
